@@ -1,4 +1,4 @@
-name: Test With Gradle
+name: Comment on an issue
 
 on:
   issues:
