@@ -1,6 +1,7 @@
 package com.ask.githubactions.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.ask.githubactions.entity.Company;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,10 @@ class CompanyRepositoryTest {
     log.info("company : {}", company);
     assertThat(savedCompany.getId()).isNotEmpty();
     assertThat(savedCompany).isEqualTo(company);
-    assertThat(false).isTrue();
+
+    if (!Boolean.parseBoolean(System.getenv("BUILD_SUCCESS"))) {
+      fail();
+    }
   }
 
 }
