@@ -5,6 +5,8 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  issues:
+    types: [ opened ]
   schedule:
     - cron:  '0 0 * * *'
 
@@ -22,15 +24,17 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         arguments: test
-    - name: Comment build scan url
-      uses: actions/github-script@v5
-      if: ${{ failure() }}
+    - name: Comment on an issue
+      uses: actions/github-script@v6
+      if: github.event_name == 'issues'
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
+#        github-token: ${{secrets.GITHUB_TOKEN}} 자동설정됨
         script: |
+          console.log(context)
+
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}'
+            body: '👋 Thanks for reporting!'
           })
