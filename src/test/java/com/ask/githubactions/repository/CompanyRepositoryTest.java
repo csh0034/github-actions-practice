@@ -32,7 +32,7 @@ class CompanyRepositoryTest {
     assertThat(savedCompany).isEqualTo(company);
 
     if (!Boolean.parseBoolean(System.getenv("BUILD_SUCCESS"))) {
-      fail();
+      fail("BUILD_SUCCESS 환경변수 값이 false 이므로 실패처리");
     }
   }
 
