@@ -19,6 +19,6 @@ jobs:
     - name: Test with Gradle
       uses: gradle/gradle-build-action@v2
       env:
-        BUILD_SUCCESS: false
+        BUILD_FORCE_FAIL: false
       with:
         arguments: test
