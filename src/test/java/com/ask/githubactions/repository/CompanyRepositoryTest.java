@@ -29,6 +29,7 @@ class CompanyRepositoryTest {
     log.info("company : {}", company);
     assertThat(savedCompany.getId()).isNotEmpty();
     assertThat(savedCompany).isEqualTo(company);
+    assertThat(false).isTrue();
   }
 
 }
