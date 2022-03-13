@@ -1,7 +1,6 @@
 package com.ask.githubactions.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.ask.githubactions.entity.Company;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +29,6 @@ class CompanyRepositoryTest {
     log.info("company : {}", company);
     assertThat(savedCompany.getId()).isNotEmpty();
     assertThat(savedCompany).isEqualTo(company);
-
-    if (!Boolean.parseBoolean(System.getenv("BUILD_SUCCESS"))) {
-      fail("BUILD_SUCCESS 환경변수 값이 false 이므로 실패처리");
-    }
   }
 
 }
