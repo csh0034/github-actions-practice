@@ -1,24 +1,21 @@
-name: Comment on an issue
+name: Create issue on commit
 
-on:
-  issues:
-    types: [ opened ]
+on: [ push ]
 
 jobs:
-  build:
+  create-commit:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
-      - name: Comment on an issue
-        uses: actions/github-script@v6
-        if: github.event_name == 'issues'
-        with:
-          #        github-token: ${{secrets.GITHUB_TOKEN}} 자동설정됨
-          script: |
-            console.log(context)
-            
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+      - name: Create issue using REST API
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
