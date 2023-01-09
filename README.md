@@ -44,5 +44,12 @@ workflow 스크립트 작성시에 `${{secrets.GITHUB_TOKEN}}` 와 같은 토큰
 
 > Gradle Build Action 을 사용할 경우 캐싱기능이 포함되어있기 때문에 같이 사용하지 않아도 될것같다.
 
+### [Configure AWS Credentials](https://github.com/marketplace/actions/configure-aws-credentials-action-for-github-actions)
+
+- 다른 GitHub job 에서 사용할 AWS 자격 증명 및 region 환경 변수를 구성한다.
+- 환경변수는 aws sdk, aws cli 에서 모두 감지된다.
+- 자격 증명을 위해 Amazon IAM Best Practice 를 따르는것이 좋으며 단기 자격증명을 위해 GitHub OIDC 를 사용하는것이 좋다.
+  - [Amazon Web Services 에서 OpenID Connect 구성](https://docs.github.com/ko/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
+
 ## 참조
 - [GitHub Actions 배포 자동화하기](https://meetup.toast.com/posts/286)
